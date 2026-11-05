@@ -129,11 +129,15 @@ def detect_os(ip_address):
     
     # If running on Windows, build ping command with -n flag for packet count
     if "windows" in os_name:
-        # -n 1 sends one echo request, -w 2000 sets a 2-second timeout
+        # -n 1 sends one echo request, -w 2000 sets a 2-second timeout in milliseconds
         cmd = ["ping", "-n", "1", "-w", "2000", ip_address]
-    # Otherwise, assume Linux or macOS and use -c flag
+    # If running on macOS (Darwin), the -W flag is in milliseconds (2000 ms = 2 seconds)
+    elif "darwin" in os_name:
+        # -c 1 sends one packet, -W 2000 sets a 2000ms (2s) timeout on macOS
+        cmd = ["ping", "-c", "1", "-W", "2000", ip_address]
+    # Otherwise, assume Linux where the -W flag is in seconds
     else:
-        # -c 1 sends one packet, -W 2 sets a 2-second timeout
+        # -c 1 sends one packet, -W 2 sets a 2-second timeout on Linux
         cmd = ["ping", "-c", "1", "-W", "2", ip_address]
 
     # Initialize a dictionary to store our detection findings
@@ -553,3 +557,4 @@ if __name__ == "__main__":
         print(f"\n[-] Fatal error: {fatal_error}")
         # Exit with error code 1
         sys.exit(1)
+
