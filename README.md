@@ -65,7 +65,7 @@ Using Python's context manager (with open(filename, "w", encoding="utf-8")), the
 
 The script was tested against scanme.nmap.org (an authorized testing host provided by the Nmap Project) on macOS. Below is the terminal output captured during testing:
 
-![Terminal Scan Results](terminal_scan_results.png)
+![Terminal Scan Results](docs/screenshots/terminal_scan_results.png)
 
 ### Summary of Captured Results:
 - Target Resolved: scanme.nmap.org -> 45.33.32.156
